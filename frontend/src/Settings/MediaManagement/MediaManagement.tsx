@@ -266,6 +266,24 @@ function MediaManagement() {
                   />
                 </FormGroup>
 
+                {settings.copyUsingHardlinks.value ? (
+                  <FormGroup
+                    advancedSettings={showAdvancedSettings}
+                    isAdvanced={true}
+                    size={sizes.MEDIUM}
+                  >
+                    <FormLabel>{translate('ForceHardlinks')}</FormLabel>
+
+                    <FormInputGroup
+                      type={inputTypes.CHECK}
+                      name="forceHardlinks"
+                      helpText={translate('ForceHardlinksHelpText')}
+                      onChange={handleInputChange}
+                      {...settings.forceHardlinks}
+                    />
+                  </FormGroup>
+                ) : null}
+
                 <FormGroup
                   advancedSettings={showAdvancedSettings}
                   isAdvanced={true}

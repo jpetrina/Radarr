@@ -92,7 +92,8 @@ namespace NzbDrone.Core.MediaFiles
             if (_configService.CopyUsingHardlinks)
             {
                 _logger.Debug("Attempting to hardlink movie file: {0} to {1}", movieFile.Path, filePath);
-                return TransferFile(movieFile, localMovie.Movie, filePath, TransferMode.HardLinkOrCopy, localMovie);
+                var mode = _configService.ForceHardlinks ? TransferMode.HardLink : TransferMode.HardLinkOrCopy;
+                return TransferFile(movieFile, localMovie.Movie, filePath, mode, localMovie);
             }
 
             _logger.Debug("Copying movie file: {0} to {1}", movieFile.Path, filePath);

@@ -703,6 +703,8 @@
   "Fixed": "Fixed",
   "Folder": "Folder",
   "FolderNameTokens": "Folder Name Tokens",
+  "ForceHardlinks": "Force Hardlinks",
+  "ForceHardlinksHelpText": "When enabled, import will fail if hardlinking is not possible instead of falling back to copying. This ensures files are always hardlinked when the option is enabled.",
   "Folders": "Folders",
   "FollowPerson": "Follow Person",
   "Forecast": "Forecast",
