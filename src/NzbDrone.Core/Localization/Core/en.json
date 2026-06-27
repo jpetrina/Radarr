@@ -1123,7 +1123,7 @@
   "MoreDetails": "More details",
   "MoreInfo": "More Info",
   "MountMovieHealthCheckMessage": "Mount containing a movie path is mounted read-only: ",
-  "MoveAutomatically": "Move Automatically",
+  "HardlinkAutomatically": "Hardlink Automatically",
   "MoveFiles": "Move Files",
   "MoveMovieFoldersDontMoveFiles": "No, I'll Move the Files Myself",
   "MoveMovieFoldersMoveFiles": "Yes, Move the Files",

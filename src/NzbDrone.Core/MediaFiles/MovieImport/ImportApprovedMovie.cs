@@ -114,17 +114,25 @@ namespace NzbDrone.Core.MediaFiles.MovieImport
                     }
 
                     bool copyOnly;
+                    bool forceHardlink;
                     switch (importMode)
                     {
                         default:
                         case ImportMode.Auto:
                             copyOnly = downloadClientItem is { CanMoveFiles: false };
+                            forceHardlink = false;
                             break;
                         case ImportMode.Move:
                             copyOnly = false;
+                            forceHardlink = false;
                             break;
                         case ImportMode.Copy:
                             copyOnly = true;
+                            forceHardlink = false;
+                            break;
+                        case ImportMode.HardLink:
+                            copyOnly = true;
+                            forceHardlink = true;
                             break;
                     }
 
@@ -133,7 +141,7 @@ namespace NzbDrone.Core.MediaFiles.MovieImport
                         movieFile.SceneName = localMovie.SceneName;
                         movieFile.OriginalFilePath = GetOriginalFilePath(downloadClientItem, localMovie);
 
-                        oldFiles = _movieFileUpgrader.UpgradeMovieFile(movieFile, localMovie, copyOnly).OldFiles;
+                        oldFiles = _movieFileUpgrader.UpgradeMovieFile(movieFile, localMovie, copyOnly, forceHardlink).OldFiles;
                     }
                     else
                     {

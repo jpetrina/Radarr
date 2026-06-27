@@ -101,6 +101,7 @@ function InteractiveImportSelectFolderModalContent(
       executeCommand({
         name: commandNames.DOWNLOADED_MOVIES_SCAN,
         path: folder,
+        importMode: 'hardlink',
       })
     );
 
@@ -185,7 +186,7 @@ function InteractiveImportSelectFolderModalContent(
               onPress={onQuickImportPress}
             >
               <Icon className={styles.buttonIcon} name={icons.QUICK} />
-              {translate('MoveAutomatically')}
+              {translate('HardlinkAutomatically')}
             </Button>
           </div>
 

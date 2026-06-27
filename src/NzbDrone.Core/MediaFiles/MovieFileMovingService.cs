@@ -19,7 +19,7 @@ namespace NzbDrone.Core.MediaFiles
     {
         MovieFile MoveMovieFile(MovieFile movieFile, Movie movie);
         MovieFile MoveMovieFile(MovieFile movieFile, LocalMovie localMovie);
-        MovieFile CopyMovieFile(MovieFile movieFile, LocalMovie localMovie);
+        MovieFile CopyMovieFile(MovieFile movieFile, LocalMovie localMovie, bool forceHardlink = false);
     }
 
     public class MovieFileMovingService : IMoveMovieFiles
@@ -82,12 +82,18 @@ namespace NzbDrone.Core.MediaFiles
             return TransferFile(movieFile, localMovie.Movie, filePath, TransferMode.Move, localMovie);
         }
 
-        public MovieFile CopyMovieFile(MovieFile movieFile, LocalMovie localMovie)
+        public MovieFile CopyMovieFile(MovieFile movieFile, LocalMovie localMovie, bool forceHardlink = false)
         {
             var newFileName = _buildFileNames.BuildFileName(localMovie.Movie, movieFile, null, localMovie.CustomFormats);
             var filePath = _buildFileNames.BuildFilePath(localMovie.Movie, newFileName, Path.GetExtension(localMovie.Path));
 
             EnsureMovieFolder(movieFile, localMovie, filePath);
+
+            if (forceHardlink)
+            {
+                _logger.Debug("Attempting to hardlink movie file: {0} to {1}", movieFile.Path, filePath);
+                return TransferFile(movieFile, localMovie.Movie, filePath, TransferMode.HardLink, localMovie);
+            }
 
             if (_configService.CopyUsingHardlinks)
             {
