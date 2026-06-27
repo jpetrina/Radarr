@@ -25,3 +25,12 @@ jobs:
 
       - name: Build backend + frontend
         run: ./build.sh --backend --frontend --packages -f net8.0 -r linux-musl-x64
+
+      - name: Create archive
+        run: tar -czf Radarr.linux-musl-core-x64.tar.gz -C _artifacts/linux-musl-x64/net8.0 .
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Radarr.linux-musl-core-x64.tar.gz
+          path: Radarr.linux-musl-core-x64.tar.gz
